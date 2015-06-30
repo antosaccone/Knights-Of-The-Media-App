@@ -1,0 +1,68 @@
+/*
+** INICIO
+*/
+
+#inicio {
+	width:100%;
+	height:100%;
+	margin:0 auto;
+	text-align:center;
+	/*position:relative;*/
+	background:#FFF;
+	
+}
+
+#headerInicio {
+	width:100%;
+	position:relative;
+	/*height:30%;*/
+}
+
+#logoContainer {
+	z-index:10;
+	position:absolute;
+	/*top:5em;
+	left:5em;*/
+	margin:1% 0 0 0;	
+}
+
+#logoImg {
+	width:45%;
+	background-color:#e5e5e5;
+}
+
+#headerInicio h1 {
+	width:70%;
+	margin:0 auto;
+	font-size:1em;
+}
+
+#formulario {
+	width:90%; 
+	margin:0 auto;
+}
+
+/*
+** HOME
+*/
+
+#headerHome #titulo {
+	width:100%;	
+	margin:0 auto;
+}
+
+#contenidoHome #subtitulo {
+	margin-bottom:2.5em;
+}
+
+#dataList #tituloLista {
+	width:100%;
+}
+
+#dataList #subtituloLista {
+	width:100%;
+}
+
+.mayuscula {
+	text-transform:uppercase;	
+}

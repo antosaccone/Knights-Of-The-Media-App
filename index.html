@@ -1,0 +1,123 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<title>Knights Of The Media</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+    <link rel="stylesheet" href="themes/knightsofthemedia.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <link rel="stylesheet" href="themes/main.css" />
+    <link rel="stylesheet" href="themes/responsiveslides.css" />
+    <style>
+		@media (min-width: 600px) {
+		  #logoImg {
+			width:25%;
+		  }
+		  .rslides {
+			width: 100%;
+		  }
+		}
+	</style>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/responsiveslides.min.js"></script>
+</head>
+
+<body>
+
+<!-- PANTALLA INICIO -->
+
+	<div data-role="page" id="inicio">
+    	<div data-role="header" id="headerInicio">
+        	<h1>Inicie sesi&oacute;n para comenzar</h1>
+            <div id="logoContainer">
+        		<img id="logoImg" alt="App Logo" src="themes/images/logo.png" />
+            </div>
+            <ul class="rslides" id="slides">
+              <li><img src="themes/images/slides/1.jpg" alt=""></li>
+              <li><img src="themes/images/slides/2.jpg" alt=""></li>
+              <li><img src="themes/images/slides/3.jpg" alt=""></li>
+            </ul>
+        </div>
+        
+        <div role="main" class="ui-content" id="enterBtn">            
+            <form id="formulario">
+                <label>Usuario:</label>
+                <input type="text" id="nombreUsuario" name="nombreUsuario">
+                <label>Contrase&ntilde;a:</label>
+                <input type="password" id="clave" name="clave">
+                <input type="submit" value="Iniciar Sesi&oacute;n" id="botonLogin">
+            </form>	
+        </div>
+	</div>
+    
+    <!-- SECCION LISTADO -->
+
+    <div data-role="page" id="listado"> 
+        <div id="headerHome" data-role="header">
+        	<h1 id="titulo"></h1>
+        </div>
+    	<div id="contenidoHome" data-role="content">	
+    		<h2 class="mayuscula">Estado de Campa&ntilde;a</h2>
+    		<h3 id="subtitulo">Detalle del proceso de realizaci&oacute;n.</h3>
+            <ul id="dataList" data-role="listview"></ul>
+    	</div>
+	</div>
+    
+<script>
+  $(function() {
+    $(".rslides").responsiveSlides();
+  });
+</script>
+
+<script>
+ 
+$('#formulario').submit(function() {
+	// recolecta los valores que inserto el usuario
+	var datosUsuario = $("#nombreUsuario").val()
+	var datosPassword = $("#clave").val()
+	archivoValidacion = "http://knightsofthemedia.com.ar/app/validacionReal.php?jsoncallback=?" //mi archivo php. mando json callbak con ? como un flag q estoy madnando algo d una app.
+	 
+	$.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword}) //hago peticion al servidor mediante js.
+	.done(function(respuestaServer) {
+	
+	if(respuestaServer.validacion == "ok"){ // las propiedades del objeto que obtiene son los tablas dle array resultados.
+		/// si la validacion es correcta, muestra la pantalla "home"
+			$.mobile.changePage("#listado");
+	
+			$("#listado").on("pageshow", function(){ //al mostrarse esa pagina pasa algo.
+					$("#titulo").append("Bienvenido, Usuario N°"+ respuestaServer[0].idUsuario);
+					var elementos = Object.keys(respuestaServer).length;
+					for(var i=0; i<elementos-1; i++){
+						//console.log("TEXTO" + respuestaServer[i].textoEsp);
+						$("#dataList").append('<li class="ui-btn ui-li-static ui-body-inherit">' + '<img alt="" src="'+ respuestaServer[i].imagen + '">' + '<h2 id="tituloLista">' + respuestaServer[i].textoEsp + '</h2>' +  '<p id="subtituloLista">' + respuestaServer[i].descripcion + '</p>' + '</li>');
+					}
+			});
+	
+		var datosLocales = JSON.stringify(respuestaServer);
+		//alert(datosLocales);
+		
+		localStorage.setItem("datos", datosLocales);
+	
+		if(navigator.offline){
+			
+		} else {
+			//alert("hay señal");
+		}
+	
+	}else{
+		
+		alert("Datos incorrectos. Por favor, ingréselos nuevamente.");
+		
+	}
+	
+	})
+		return false;
+});
+
+</script>
+
+<script type="text/javascript" src="cordova.js"></script> 
+
+</body>
+</html>
