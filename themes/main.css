@@ -226,19 +226,25 @@ div.holoPressEffectDiv {
 
 #popupBasic {
 	background-color: #333;
-	width: 100%;
+	/*width: 100%;*/
 }
 
 #popupBasic p {
-	margin: -1em 0px 0px 2.5em;
+	margin-top: -1.2em;
 }
 
 
 /***********************  MEDIA QUERIES  *******************************/
 
 
-@media (min-width: 300px) {
+@media (max-width: 800px) {
 	#imagenError {
 		width: 40%;
+	}
+	#logoImg {
+		width:40%;
+	}
+	#logoContainer {
+		height: 80%;
 	}
 }

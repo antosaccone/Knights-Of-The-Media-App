@@ -145,6 +145,7 @@
 <script>
   $(function() {
     $(".rslides").responsiveSlides();
+    $("#popupBasic").hide();
   });
 </script>
 
@@ -183,7 +184,7 @@ $("#inicio").on("pagebeforeshow", function() {
 			}				
 		});
 			
-	} 
+	}
 });
  
 
@@ -301,6 +302,7 @@ $('#formConsultas').submit(function() {
 		$.getJSON( archivoGuardarComment, { mail:mail, comentario:comentario, proyecto:proyecto }) //hago peticion al servidor mediante js.
 		.done(function(respuestaServer) {
 
+		$("#popupBasic").show();
 		$('#popupBasic').popup();
 		$('#popupBasic').popup("open");
 
