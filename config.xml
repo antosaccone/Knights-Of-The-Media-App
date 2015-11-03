@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.phonegap.inAppExample" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.phonegap.knightsofthemediaApp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Knights Of The Media App</name>
     <description>
-        App para obtener estado de campañas y tips de Multimedia.
+        App para obtener estado de proyectos y realización de pedidos.
     </description>
-    <author email="antonellabsaccone@gmail.com" href="http://www.google.com.ar">
+    <author email="antonellabsaccone@gmail.com" href="http://knightsofthemedia.com.ar">
         Antonella Saccone
     </author>
     <preference name="permissions" value="none" />
@@ -23,6 +23,8 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="7" />
     <preference name="android-installLocation" value="auto" />
+
+    <!--<gap:plugin name="org.apache.cordova.device-orientation" version="0.3.9" />-->
     
 	<icon gap:platform="android" gap:qualifier="ldpi" src="res/icon/android/ldpi/ic_launcher.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="res/icon/android/mdpi/ic_launcher.png" />
@@ -30,6 +32,12 @@
     <icon gap:platform="android" gap:qualifier="xhdpi" src="res/icon/android/xhdpi/ic_launcher.png" />
 	<icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icon/android/xxhdpi/ic_launcher.png" />
 	<icon gap:platform="android" gap:qualifier="xxxhdpi" src="res/icon/android/xxxhdpi/ic_launcher.png" />
+
+    <gap:splash src="splash.png" />
+    <gap:splash src="res/screen/android/ldpi.png" gap:platform="android" gap:qualifier="ldpi" />
+    <gap:splash src="res/screen/android/mdpi.png" gap:platform="android" gap:qualifier="mdpi" />
+    <gap:splash src="res/screen/android/hdpi.png" gap:platform="android" gap:qualifier="hdpi" />
+    <gap:splash src="res/screen/android/xhdpi.png" gap:platform="android" gap:qualifier="xhdpi" />
 	
     <access origin="*" />
 </widget>

@@ -36,16 +36,21 @@ if(mysqli_num_rows($sqlQry)>0){
 
 	//$sqlP = "SELECT * FROM proyectos where idUsuario = '$idUsuario'";
 	
-	$sql = "SELECT * FROM textos WHERE idUsuario = '$idUsuario'"; 
+	$sql = "SELECT * FROM textos_app INNER JOIN usuarios ON textos_app.idUsuario = usuarios.idUsuario WHERE textos_app.idUsuario = '$idUsuario'"; 
 	
 	//$sql = "SELECT * FROM textos WHERE idUsuario = '$idUsuario' INNER JOIN  usuarios ON textos.idUsuario = usuarios.idUsuario"; 
 	
 	mysqli_query($conexion,"SET NAMES 'utf8'");
 	$sqlQry = mysqli_query($conexion,$sql);
 
-	while ($r = mysqli_fetch_assoc($sqlQry)){ // tiene q ser assoc para que no me cree arrays multimedimensional, probar que muestra un echo con array y otro con assoc
+	/*while ($r = mysqli_fetch_assoc($sqlQry)){ // tiene q ser assoc para que no me cree arrays multimedimensional, probar que muestra un echo con array y otro con assoc
+		$resultados[] = $r;
+	}*/
+
+	while ($r = mysqli_fetch_array($sqlQry)){ // tiene q ser assoc para que no me cree arrays multimedimensional, probar que muestra un echo con array y otro con assoc
 		$resultados[] = $r;
 	}
+
 	//echo json_encode($array);
 }else{
 	$login=0;
@@ -55,6 +60,7 @@ $resultados["validacion"] = "neutro";
 
 if( $login==1 ){
 	$resultados["validacion"] = "ok";
+	//$sql2 = 'SELECT * FROM textos_app WHERE  = '.$_POST["idTexto"].'';
 }else{
 	$resultados["validacion"] = "error";
 }

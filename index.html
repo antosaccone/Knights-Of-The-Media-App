@@ -2,30 +2,38 @@
 <html>
 <head>
 	<title>Knights Of The Media</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" charset="utf-8" />
     <link rel="stylesheet" href="themes/knightsofthemedia.css" />
 	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.structure-1.4.5.min.css" />
     <link rel="stylesheet" href="themes/main.css" />
     <link rel="stylesheet" href="themes/responsiveslides.css" />
-    <style>
-		@media (min-width: 600px) {
-		  #logoImg {
-			width:25%;
-		  }
-		  .rslides {
-			width: 100%;
-		  }
-		}
-	</style>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
     <script src="js/responsiveslides.min.js"></script>
+    <script type="text/javascript" src="js/post.js"></script>
+	<script type="text/javascript">// <![CDATA[
+	        function onBodyLoad() {
+	            document.addEventListener("deviceready",onDeviceReady,false);
+	        }
+	// ]]></script>
+    <style>
+	@media (min-width: 600px) {
+		#logoImg {
+			width:25%;
+		}
+		.rslides {
+			width: 100%;
+		}
+	}
+	label, b {
+            display: block;
+        }
+</style>
 </head>
-
 <body>
 
-<!-- PANTALLA INICIO -->
+<!-- SECCION INICIO -->
 
 	<div data-role="page" id="inicio">
     	<div data-role="header" id="headerInicio">
@@ -50,18 +58,88 @@
             </form>	
         </div>
 	</div>
-    
+
     <!-- SECCION LISTADO -->
 
     <div data-role="page" id="listado"> 
         <div id="headerHome" data-role="header">
         	<h1 id="titulo"></h1>
+        	<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menú</a>
         </div>
+        
     	<div id="contenidoHome" data-role="content">	
-    		<h2 class="mayuscula">Estado de Campa&ntilde;a</h2>
-    		<h3 id="subtitulo">Detalle del proceso de realizaci&oacute;n.</h3>
-            <ul id="dataList" data-role="listview"></ul>
+    		<h2 class="mayuscula">Estado de sus proyectos actuales</h2>
+    		<h3 id="subtitulo">Presione cada uno para ver el detalle.</h3>
+            <ul id="dataList" data-role="listview" data-inset="true"></ul>
+            <div class="ui-grid-b ui-responsive" id="grilla"></div>
     	</div>
+	</div>
+
+	<!-- SECCION DETALLE -->
+
+    <div data-role="page" id="detalle"> 
+        <div data-role="header">
+        	<h1 id="titulo"></h1>
+        	<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menú</a>
+        </div>
+    	<div data-role="content">	
+    		<h1 id="tituloDetalle"></h1>
+    		<h2 class="mayuscula">Detalle</h2>
+    		<div id="contenidoDetalle"></div>      
+    	</div>
+	</div>
+
+	<!-- SECCION CONSULTAS -->
+
+    <div data-role="page" id="consultas"> 
+        <div data-role="header">
+        	<h1 id="titulo"></h1>
+        	<a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menú</a>
+        </div>
+        
+    	<div data-role="content">	
+    		<h2 class="mayuscula">Consultas</h2>
+    		<h3 id="subtitulo">Envíenos sus dudas mediante el siguiente formulario.</h3>
+            <div id="contenedorConsulta">
+				<form id="formConsultas">
+					<label for="email">
+					 	<b>Email</b>
+					 	<input id="email" type="email" name="email" required />
+					 </label>
+					<label>
+						<b>¿Sobre qué proyecto quiere consultar?</b>
+						<select name="select-choice-1" id="select-choice-1">
+							<option value="0">Proyecto Nuevo</option>
+						</select>
+					</label>
+					 <label for="comentario">
+					 	<b>Comentario</b>
+					 	<textarea id="comentario" cols="30" name="comentario" rows="30" required></textarea>
+					 </label>
+					 <input type="submit" value="Enviar" />
+				 </form>
+			 </div>
+    	</div>
+	</div>
+
+	<!-- SECCION ERROR -->
+    
+	<div data-role="page" id="error"> 
+        <div data-role="header">
+        	<h1>ERROR</h1>
+        </div>
+    	<div id="contenidoError" data-role="content">	
+    		<h2 class="mayuscula">No dispones de conexión a Internet</h2>
+    		<h3>Por favor vuelve a intentarlo.</h3>
+    		<img src="themes/images/cloud-reload.png" id="imagenError">
+    	</div>
+	</div>
+
+	<!-- SECCION POPUP MENSAJE SUBMIT -->
+
+	<div data-role="popup" id="popupBasic" class="ui-content" style="max-width:280px">
+	    <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Cerrar</a>
+		<p>Mensaje enviado con éxito.</p>
 	</div>
     
 <script>
@@ -71,53 +149,182 @@
 </script>
 
 <script>
+
+var panel = '<div data-role="panel" id="nav-panel" data-position="left" data-display="push" data-theme="a"><div id="userProfile" class="clearfix"></div><ul data-role="listview" id="listaMenu"><li><a href="#listado">Resumen de Campañas</a></li><li><a href="#consultas">Consultas</a><li data-icon="delete"><a href="#" data-rel="close" class="ui-icon-delete">Cerrar Panel</a></li></ul></div>';
+
+$(document).one('pagebeforecreate', function () {
+  $.mobile.pageContainer.prepend(panel);
+  $("#nav-panel").panel().enhanceWithin();
+});
+
+var archivoValidacionUsuario = "http://knightsofthemedia.com.ar/app/validacionUsuario.php?jsoncallback=?"; 
+var archivoValidacionItem = "http://knightsofthemedia.com.ar/app/validacionItemLista.php?jsoncallback=?"; 
+var archivoGuardarComment = "http://knightsofthemedia.com.ar/app/guardarComment.php?jsoncallback=?"; 
+
+var numeroTexto;
+
+
+$("#inicio").on("pagebeforeshow", function() { 
+	
+	if(navigator.onLine && localStorage.getItem("datos") != null){
+
+		var storedData = JSON.parse(localStorage.getItem("datos"));
+
+		$.mobile.changePage("#listado");
+
+		var elementos = Object.keys(storedData).length;
+
+		$("#listado").one("pageshow", function(){ //al mostrarse esa pagina pasa algo.
+			$("#userProfile").append('<img id="userImage" src="'+storedData[0].imagenUsuario+'">' + '<h2 id="userName" class="clearfix">'+storedData[0].nombreUsuario+'</h2>' + '<p id="empresaUser">'+storedData[0].empresa+'</p>');
+			for(var i=0; i<elementos-1; i++){
+				numeroTexto = storedData[i].idTextoApp;
+				$("#grilla").append('<div class="card">' + '<a href="javascript:mostrarProducto('+storedData[i].idTextoApp+')"'+">" + '<div class="card-image">' + '<img alt="" src="'+storedData[i].imagen+'">' + '<h2>'+storedData[i].textoEsp+'</h2>' + '</div>' + '<p>'+storedData[i].estado+'</p>' + '</a>' + '</div>');
+
+			}				
+		});
+			
+	} 
+});
  
+
 $('#formulario').submit(function() {
 	// recolecta los valores que inserto el usuario
 	var datosUsuario = $("#nombreUsuario").val()
 	var datosPassword = $("#clave").val()
-	archivoValidacion = "http://knightsofthemedia.com.ar/app/validacionReal.php?jsoncallback=?" //mi archivo php. mando json callbak con ? como un flag q estoy madnando algo d una app.
-	 
-	$.getJSON( archivoValidacion, { usuario:datosUsuario ,password:datosPassword}) //hago peticion al servidor mediante js.
-	.done(function(respuestaServer) {
-	
-	if(respuestaServer.validacion == "ok"){ // las propiedades del objeto que obtiene son los tablas dle array resultados.
-		/// si la validacion es correcta, muestra la pantalla "home"
-			$.mobile.changePage("#listado");
-	
-			$("#listado").on("pageshow", function(){ //al mostrarse esa pagina pasa algo.
-					$("#titulo").append("Bienvenido, Usuario N°"+ respuestaServer[0].idUsuario);
-					var elementos = Object.keys(respuestaServer).length;
-					for(var i=0; i<elementos-1; i++){
-						//console.log("TEXTO" + respuestaServer[i].textoEsp);
-						$("#dataList").append('<li class="ui-btn ui-li-static ui-body-inherit">' + '<img alt="" src="'+ respuestaServer[i].imagen + '">' + '<h2 id="tituloLista">' + respuestaServer[i].textoEsp + '</h2>' +  '<p id="subtituloLista">' + respuestaServer[i].descripcion + '</p>' + '</li>');
-					}
-			});
-	
-		var datosLocales = JSON.stringify(respuestaServer);
-		//alert(datosLocales);
+
+	if(navigator.onLine){
+
+		$.getJSON( archivoValidacionUsuario, { usuario:datosUsuario,password:datosPassword }) //hago peticion al servidor mediante js.
+		.done(function(respuestaServer) {
 		
-		localStorage.setItem("datos", datosLocales);
-	
-		if(navigator.offline){
-			
+		if(respuestaServer.validacion == "ok"){ // las propiedades del objeto que obtiene son los tablas dle array resultados.
+			/// si la validacion es correcta, muestra la pantalla "home"
+
+				//FALTA IF si hay conexion y ya accedio
+				
+				var datosLocales = JSON.stringify(respuestaServer);
+				
+				localStorage.setItem("datos", datosLocales);
+
+				$.mobile.changePage("#listado");
+		
+				//alert("Hay conexión, muestro lo otro");
+
+				var elementos = Object.keys(respuestaServer).length;
+
+
+				$("#listado").one("pageshow", function(){ //al mostrarse esa pagina pasa algo.
+						$("#userProfile").append('<img id="userImage" src="'+respuestaServer[0].imagenUsuario+'">' + '<h2 id="userName" class="clearfix">'+respuestaServer[0].nombreUsuario+'</h2>' + '<p id="empresaUser">'+respuestaServer[0].empresa+'</p>');
+						for(var i=0; i<elementos-1; i++){
+							numeroTexto = respuestaServer[i].idTextoApp;
+							$("#grilla").append('<div class="card">' + '<a href="javascript:mostrarProducto('+respuestaServer[i].idTextoApp+')"'+">" + '<div class="card-image">' + '<img alt="" src="'+respuestaServer[i].imagen+'">' + '<h2>'+respuestaServer[i].textoEsp+'</h2>' + '</div>' + '<p>'+respuestaServer[i].estado+'</p>' + '</a>' + '</div>');
+
+						}				
+				});
+		
 		} else {
-			//alert("hay señal");
+			
+			alert("Datos incorrectos. Por favor, ingréselos nuevamente.");
+			
 		}
-	
-	}else{
 		
-		alert("Datos incorrectos. Por favor, ingréselos nuevamente.");
-		
+		});
+
+	} else {
+
+		//alert("ENTRE AL LS");
+
+		//Falta hacer que el FORM no se vea si ya se inicio sesion antes
+
+		if (localStorage.getItem("datos") === null) {
+		  //Acá hago la pantalla de NADA
+		  $("#inicio").on("pagebeforeshow", function() { 
+		  	$.mobile.changePage("#error");
+		  	console.log("No tengo datos, y no tengo conexión");
+		  });
+		} else {
+			var storedData = JSON.parse(localStorage.getItem("datos"));
+
+			console.log("ENTRE AL LS");
+
+			$.mobile.changePage("#listado");
+
+			var elementos = Object.keys(storedData).length;
+
+			$("#listado").one("pageshow", function(){ //al mostrarse esa pagina pasa algo.
+						$("#userProfile").append('<img id="userImage" src="'+storedData[0].imagenUsuario+'">' + '<h2 id="userName" class="clearfix">'+storedData[0].nombreUsuario+'</h2>' + '<p id="empresaUser">'+storedData[0].empresa+'</p>');
+						for(var i=0; i<elementos-1; i++){
+							numeroTexto = storedData[i].idTextoApp;
+							$("#grilla").append('<div class="card">' + '<a href="javascript:mostrarProducto('+storedData[i].idTextoApp+')"'+">" + '<div class="card-image">' + '<img alt="" src="'+storedData[i].imagen+'">' + '<h2>'+storedData[i].textoEsp+'</h2>' + '</div>' + '<p>'+storedData[i].estado+'</p>' + '</a>' + '</div>');
+
+						}				
+				});
+
+		}
+
 	}
-	
-	})
+			return false;
+
+			
+});
+
+/*********** MOSTRAR DETALLE DEL PROYECTO *************/
+
+function mostrarProducto(index){
+	$.getJSON(archivoValidacionItem+'&index='+index).done(function(respuestaServer) {
+
+		var elemento = respuestaServer.item;
+
+		$.mobile.changePage("#detalle"); //Cambio de página y luego hago el append del elemento que quiero
+
+		$("#contenidoDetalle").empty();
+
+		$("#contenidoDetalle").append('<img id="imagenDetalle" alt="" src="'+ elemento[0].imagen + '">' + '<h2 id="tituloLista">' + elemento[0].textoEsp + '</h2>' + '<p id="descripcion">' + elemento[0].descripcion + '</p>' );
+
+	});	
+
+}
+
+/********* POPUP QUE MUESTRA QUE SE MANDÓ BIEN LA CONSULTA ***********/
+
+
+$('#formConsultas').submit(function() {
+
+	var comentario = $("#comentario").val();
+	var mail = $("#email").val();
+	var proyectoTxt = $("#select-choice-1 option:selected").text();
+
+	String(proyectoTxt);
+
+	var proyecto = proyectoTxt;
+
+		$.getJSON( archivoGuardarComment, { mail:mail, comentario:comentario, proyecto:proyecto }) //hago peticion al servidor mediante js.
+		.done(function(respuestaServer) {
+
+		$('#popupBasic').popup();
+		$('#popupBasic').popup("open");
+
+	});	
+
 		return false;
 });
 
+/******** LLENAR EL SELECT ***********/
+
+$(document).one('pageshow', '#consultas', function(){
+	var storedData = JSON.parse(localStorage.getItem("datos"));
+	var options;
+	var elementos = Object.keys(storedData).length;
+	for(var i=0; i<elementos-1; i++){
+		options='<option value="'+storedData[i].idTextoApp+'">'+storedData[i].textoEsp+'</option>';
+		$("select#select-choice-1").append(options);
+	}     
+});
+
+
 </script>
 
-<script type="text/javascript" src="cordova.js"></script> 
+<script type="text/javascript" src="cordova.js"></script>
 
 </body>
 </html>

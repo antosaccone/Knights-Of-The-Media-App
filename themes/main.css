@@ -4,7 +4,7 @@
 
 #inicio {
 	width:100%;
-	height:100%;
+	/*height:100%;*/
 	margin:0 auto;
 	text-align:center;
 	/*position:relative;*/
@@ -21,14 +21,13 @@
 #logoContainer {
 	z-index:10;
 	position:absolute;
-	/*top:5em;
-	left:5em;*/
-	margin:1% 0 0 0;	
+	opacity:.8;
+	background-color:#000;
+	height:89%;
 }
 
 #logoImg {
-	width:45%;
-	background-color:#e5e5e5;
+	width:50%;
 }
 
 #headerInicio h1 {
@@ -52,7 +51,19 @@
 }
 
 #contenidoHome #subtitulo {
-	margin-bottom:2.5em;
+	margin-bottom:1em;
+}
+
+#dataList li {
+	margin: 5px;
+	padding: 0;
+}
+
+#dataList li a {
+	display: block;
+	margin: 0px;
+	padding: 26px;
+	color: #FFF;
 }
 
 #dataList #tituloLista {
@@ -65,4 +76,169 @@
 
 .mayuscula {
 	text-transform:uppercase;	
+}
+
+/*
+** ERROR
+*/
+
+#contenidoError {
+	width: 50%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#imagenError {
+	width: 15%;
+}
+
+/*
+** PANEL
+*/
+
+#nav-panel {
+	background-color: #D60031;
+}
+
+.ui-panel-page-container-themed .ui-page-active {
+	background-color: #D60031;
+	border: none;
+}
+
+.ui-panel-open.ui-panel-position-left.ui-panel-display-push {
+	border-right-style: none;
+}
+
+#listaMenu {
+	margin-top: 16px;
+}
+
+#userProfile {
+	height: 30%;
+	background-image: url("images/fondoUser.jpg");
+	background-color: #FF0;
+	margin: -1em;
+}
+
+#userImage {
+	width: 20%;
+	float: left;
+	margin: 16px 0 0 15px;
+}
+
+#userName {
+	width: 20%;
+	float: left;
+	margin: 29px 0 0 12px;
+	color: #FFF;
+}
+
+#empresaUser {
+	width: 100%;
+	height: 30%;
+	float: left;
+	margin-left: 29px;
+	color: #FFF;
+}
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+}
+
+/*
+** CARDS
+*/
+
+.card {
+  background: #333;
+  border: 1px solid #333;
+  box-shadow: 0px 2px 3px 0px #333;
+  padding: 0px;
+  margin-top: 15px;
+  margin-right: 7.5px;
+  margin-bottom: 15px;
+  margin-left: 7.5px;
+  overflow: hidden;
+  border-radius: 3px;
+}
+.card h1 {
+  margin: 0px;
+  padding: 10px;
+  padding-bottom: 0px;
+}
+.card p {
+  margin: 0px;
+  padding: 10px;
+  color: #FFF;
+}
+.card-image {
+  width: 100%;
+  height: 200px;
+  padding: 0px;
+  margin: 0px;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image h1, 
+.card-image h2, 
+.card-image h3, 
+.card-image h4, 
+.card-image h5, 
+.card-image h6 {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  color: white;
+  background: rgba(214, 0, 49, 0.65);
+  margin: 0px;
+  padding: 6px;
+  border: none;
+}
+
+div.holoPressEffectDiv {
+	background-color: #CCCCCC;
+}
+
+#grilla {
+	width: 80%;
+	margin: 0 auto;
+}
+
+/*
+** DETALLE
+*/
+
+#imagenDetalle {
+	width: 85%;
+}
+
+/*
+** POPUP
+*/
+
+#popupBasic {
+	background-color: #333;
+	width: 100%;
+}
+
+#popupBasic p {
+	margin: -1em 0px 0px 2.5em;
+}
+
+
+/***********************  MEDIA QUERIES  *******************************/
+
+
+@media (min-width: 300px) {
+	#imagenError {
+		width: 40%;
+	}
 }
